@@ -7,40 +7,29 @@ import {
     DeleteDateColumn,
     BaseEntity
 } from "typeorm";
-import { Field, ID, ObjectType } from 'type-graphql';
+
+import {ObjectType, Field, ID} from "type-graphql";
 
 @Entity()
 @ObjectType()
-export class User extends BaseEntity{
-
+export class Role extends BaseEntity{
     @PrimaryGeneratedColumn()
     @Field(() => ID)
-    id: number;
+    id: number
 
     @Column()
     @Field(() => String)
-    firstName: string;
-
-    @Column({nullable:true})
-    @Field(() => String,{nullable:true})
-    lastName: string;
-
-    @Column()
-    @Field(() => String)
-    email:string
-
-    @Column()
-    password:string
+    name:string
 
     @CreateDateColumn()
     @Field(() => Date)
-    createdAt:Date;
+    createdAt:Date
 
     @UpdateDateColumn()
     @Field(() => Date)
-    updatedAt:Date;
+    updatedAt:Date
 
     @DeleteDateColumn({nullable:true})
-    deletedAt?:Date;
-
+    @Field(() => Date)
+    deletedAt?:Date
 }
