@@ -1,5 +1,5 @@
 import express from 'express';
-import {ApolloServer} from 'apollo-server-express';
+import {ApolloServer, ApolloServerExpressConfig} from 'apollo-server-express';
 import bodyParser from 'body-parser';
 import 'reflect-metadata';
 import {buildSchema} from 'type-graphql';
@@ -24,7 +24,7 @@ const main = async () => {
 
     const app = express();
     app.use(bodyParser.json());
-    const server = new ApolloServer({
+    const server = new ApolloServer(<ApolloServerExpressConfig>{
         schema,
         context:({req}) => {
             const token = req.headers.authorization;
