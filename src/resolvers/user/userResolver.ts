@@ -6,7 +6,7 @@ import {
     UseMiddleware
 } from 'type-graphql';
 import {ContextType} from "../../types/contextType";
-import {User} from '../../entity/user';
+import {User} from '../../entity/User';
 import {UserRegisterInput} from '../../schemas/user/userRegisterInput';
 import {UserLoginInput} from "../../schemas/user/userLoginInput";
 import argon2 from "argon2";
