@@ -5,6 +5,7 @@ import {
     Resolver, Field, ObjectType, Ctx,
     UseMiddleware
 } from 'type-graphql';
+
 import {ContextType} from "../../types/contextType";
 import {User} from '../../entity/User';
 import {UserRegisterInput} from '../../schemas/user/userRegisterInput';
@@ -76,5 +77,15 @@ export default class {
             user,
             meta
         };
+    }
+
+    @Mutation(() => User)
+    async userDelete(
+        @Ctx() {user:{id},connection}:ContextType
+    ):Promise<User | undefined>{
+        const user = await User.findOne(id);
+        const userRepository = connection.getRepository(User);
+        await userRepository.softDelete(id);
+        return user;
     }
 }

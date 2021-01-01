@@ -6,7 +6,6 @@
    "scripts": {
       "start": "node dist/index.js",
       "dev": "nodemon --inspect dist/index.js",
-      "dev-ts" : "nodemon src/index.ts",
       "build": "tsc",
       "watch": "tsc -w",
       "test": "echo \"Error: no test specified\" && exit 1"

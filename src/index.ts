@@ -9,6 +9,7 @@ import {Parsed} from 'dotenv-parse-variables';
 import userResolver from './resolvers/user/userResolver';
 import {createConnection} from 'typeorm';
 import {verifyToken} from "./authorization/verifyToken";
+import {getConnection} from "typeorm";
 
 
 
@@ -24,16 +25,9 @@ const main = async () => {
 
     const app = express();
     app.use(bodyParser.json());
-    const server = new ApolloServer(<ApolloServerExpressConfig>{
-        schema,
-        context:({req}) => {
-            const token = req.headers.authorization;
-            const user = verifyToken(<string>token);
-            return {user};
-        }
-    });
 
     await createConnection({
+        name:"default",
         type: "mysql",
         host: process.env.DB_HOST,
         port: +process.env.DB_PORT!,
@@ -45,6 +39,17 @@ const main = async () => {
         ],
         synchronize: true,
         logging: false
+    });
+
+    const connection = getConnection();
+
+    const server = new ApolloServer(<ApolloServerExpressConfig>{
+        schema,
+        context:({req}) => {
+            const token = req.headers.authorization;
+            const user = verifyToken(<string>token);
+            return {user,connection};
+        }
     });
 
     server.applyMiddleware({app});
