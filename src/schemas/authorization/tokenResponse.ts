@@ -1,7 +1,7 @@
 import {Field, ObjectType} from "type-graphql";
 
 @ObjectType()
-export class tokenResponse {
+export class TokenResponse {
     @Field(() => String, {nullable: true})
     token: string
 

@@ -14,9 +14,9 @@ import {getConnection} from "typeorm";
 
 
 const main = async () => {
-    let env = dotenv.config({});
+    const env = dotenv.config({});
     if (env.error) throw env.error;
-    dotenvParseVariables(<Parsed>env.parsed, {overrideProcessEnv: true});
+    dotenvParseVariables((env.parsed as Parsed), {overrideProcessEnv: true});
 
     const schema = await buildSchema({
         resolvers: [userResolver],
@@ -43,14 +43,14 @@ const main = async () => {
 
     const connection = getConnection();
 
-    const server = new ApolloServer(<ApolloServerExpressConfig>{
+    const server = new ApolloServer(({
         schema,
         context:({req}) => {
             const token = req.headers.authorization;
-            const user = verifyToken(<string>token);
+            const user = verifyToken(token as string);
             return {user,connection};
         }
-    });
+    } as ApolloServerExpressConfig));
 
     server.applyMiddleware({app});
     app.listen(process.env.PORT, () => {

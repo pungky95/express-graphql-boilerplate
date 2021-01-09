@@ -2,7 +2,7 @@ import {
     Arg,
     Query,
     Mutation,
-    Resolver, Field, ObjectType, Ctx,
+    Resolver, Ctx,
     UseMiddleware
 } from 'type-graphql';
 
@@ -13,17 +13,10 @@ import {UserLoginInput} from "../../schemas/user/userLoginInput";
 import argon2 from "argon2";
 import {ApolloError} from "apollo-server-express";
 import {generateToken} from "../../authorization/generateToken";
-import {tokenResponse} from "../../schemas/authorization/tokenResponse";
 import {isAuthenticated} from "../../middleware/isAuthenticated";
+import {UserLoginResponse} from "../../schemas/user/userLoginResponse";
 
-@ObjectType()
-class UserLoginResponse {
-    @Field(() => User, {nullable: true})
-    user?: User;
 
-    @Field(() => tokenResponse, {nullable: true})
-    meta?: tokenResponse;
-}
 
 @Resolver()
 export default class {
@@ -66,7 +59,7 @@ export default class {
                 "USER_NOT_FOUND",
             );
         }
-        if (!await argon2.verify(<string>user?.password, password)) {
+        if (!await argon2.verify((user?.password as string), password)) {
             throw new ApolloError(
                 "Incorrect password",
                 "PASSWORD_NOT_MATCH",

@@ -5,10 +5,10 @@ export const generateToken = (user:User) => {
     const jwtPayload = {
         user
     };
-    const jwtToken = jwt.sign(jwtPayload, <jwt.Secret>process.env.JWT_SECRET, {
+    const jwtToken = jwt.sign(jwtPayload, (process.env.JWT_SECRET as jwt.Secret), {
         expiresIn: `${process.env.JWT_EXPIRED_IN_DAY} days`
     });
-    const jwtVerification = <any>jwt.verify(jwtToken,<jwt.Secret>process.env.JWT_SECRET);
+    const jwtVerification = (jwt.verify(jwtToken,(process.env.JWT_SECRET as jwt.Secret)) as any);
     const {iat:issuedTime,exp:expiredTime} = jwtVerification;
     const token = `Bearer ${jwtToken}`;
     return {
