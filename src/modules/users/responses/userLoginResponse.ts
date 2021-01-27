@@ -1,6 +1,6 @@
 import { Field, ObjectType } from 'type-graphql';
 import { User } from '../../../entity/User';
-import { TokenResponse } from '../../authorizations/dto/args/tokenResponse';
+import { TokenResponse } from '../../authorizations/responses/tokenResponse';
 
 @ObjectType()
 export class UserLoginResponse {
