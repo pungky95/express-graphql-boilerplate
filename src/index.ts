@@ -6,7 +6,7 @@ import { buildSchema } from 'type-graphql';
 import dotenv from 'dotenv';
 import dotenvParseVariables from 'dotenv-parse-variables';
 import { Parsed } from 'dotenv-parse-variables';
-import userResolver from './resolvers/user/userResolver';
+import userResolver from './modules/users/resolvers/user/userResolver';
 import { createConnection } from 'typeorm';
 import { verifyToken } from './authorization/verifyToken';
 import { getConnection } from 'typeorm';
