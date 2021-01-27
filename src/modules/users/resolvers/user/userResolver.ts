@@ -7,15 +7,15 @@ import {
   UseMiddleware
 } from 'type-graphql';
 
-import { ContextType } from '../../types/contextType';
-import { User } from '../../entity/User';
-import { UserRegisterInput } from '../../schemas/user/userRegisterInput';
-import { UserLoginInput } from '../../schemas/user/userLoginInput';
+import { ContextType } from '../../../../types/contextType';
+import { User } from '../../../../entity/User';
+import { UserRegisterInput } from '../../inputs/userRegisterInput';
+import { UserLoginInput } from '../../inputs/userLoginInput';
 import argon2 from 'argon2';
 import { ApolloError } from 'apollo-server-express';
-import { generateToken } from '../../authorization/generateToken';
-import { isAuthenticated } from '../../middleware/isAuthenticated';
-import { UserLoginResponse } from '../../schemas/user/userLoginResponse';
+import { generateToken } from '../../../../authorization/generateToken';
+import { isAuthenticated } from '../../../../middleware/isAuthenticated';
+import { UserLoginResponse } from '../../responses/userLoginResponse';
 
 @Resolver()
 export default class {
